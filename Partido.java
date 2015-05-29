@@ -20,14 +20,38 @@ public class Partido
     }
 
     /**
-     * 
+     * Metodo que muestra las alineaciones de los equipos que participan en el partido
      */
     public void mostrarAlineaciones()
     {
         System.out.println(equipo1.getNombre());
-        equipo1.hacerAlineacion();
+        mostrarEquipoLocal();
         System.out.println(" ");
         System.out.println(equipo2.getNombre());
+        mostrarEquipoVisitante();
+    }
+    
+    /**
+     * Metodo que muestra la alineacion titular y suplente del equipo local
+     */
+    public void mostrarEquipoLocal()
+    {
+        System.out.println("Titulares : ");
+        equipo1.hacerAlineacion();
+        equipo1.mostrarEquipoTitular();
+        System.out.println("Reservas : ");
+        equipo1.mostrarEquipoSuplente();
+    }
+    
+    /**
+     * Metodo que muestra la alineacion titular y suplente del equipo visitante
+     */
+    public void mostrarEquipoVisitante()
+    {
+        System.out.println("Titulares : ");
         equipo2.hacerAlineacion();
+        equipo2.mostrarEquipoTitular();
+        System.out.println("Reservas : ");
+        equipo2.mostrarEquipoSuplente();
     }
 }
