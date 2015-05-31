@@ -16,7 +16,6 @@ public abstract class Jugador
     //indica la puntuacion del jugador
     private int forma;
 
-
     /**
      * Constructor for objects of class Jugador
      */
@@ -31,6 +30,7 @@ public abstract class Jugador
         forma = rnd.nextInt(11);
 
     }
+
     /**
      * Metodo que devuelve el nombre del jugador
      * @return el nombre del jugador
@@ -67,6 +67,42 @@ public abstract class Jugador
         return dorsal;
     }
 
+    /**
+     * entrenamiento de los jugadores
+     * se mejora las habilidades en un porcentaje aleatorio
+     * si la habilidad es 0 reconpensando el entrenamiento se convierte en 1 
+     * 
+     */
+    public void entrenar()
+    {
+        Random rnd=new Random();
+        int porcent=rnd.nextInt(101);
+        int mejora =(forma * porcent) /100;
+        if(mejora + forma <= 10)
+        {
+            forma+=mejora;
+        }
+        else
+        {
+            forma = 10;
+        }
+
+         if(forma==0)
+        {
+            forma=1;
+        }
+    }
+
+    /**
+     * modificamos el valor de forma
+     * @param int forma 
+     */
+    public void setForma(int f)
+    {
+        forma=f;
+    }
+
+    
     /**
      * metodo que calcula la valoracion media del jugador
      * @return la valoracion media del jugador

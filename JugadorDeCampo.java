@@ -64,6 +64,34 @@ public class JugadorDeCampo extends Jugador
     }
 
     /**
+     * modificador del atributo pases
+     * @param int pases
+     */
+    public void setPases(int p)
+    {
+        pases=p;
+    }
+    
+    
+     /**
+     * modificador del atributo regates
+     * @param int regate
+     */
+    public void setRegate(int r)
+    {
+        regate=r;
+    }
+    
+     /**
+     * modificador del atributo remate
+     * @param int remate
+     */
+    public void setRemate(int r)
+    {
+        remate=r;
+    }
+    
+    /**
      * metodo que muestra la informacion sobre el jugador
      * @return la informacion del jugador en forma de cadena
      */
@@ -72,5 +100,66 @@ public class JugadorDeCampo extends Jugador
         
         return super.toString() + String.format("  Pases : %2d  Regates : %2d  Remates : %2d"
             + "  Valoracion : %2d",pases,regate,remate,valoracion());
+    }
+    
+    /**
+     * entrenamiento de los jugadores
+     * se mejora las habilidades en un porcentaje aleatorio
+     * si la habilidad es 0 reconpensando el entrenamiento se convierte en 1 
+     * 
+     */
+     public void entrenar()
+    {
+        super. entrenar();
+        Random rnd=new Random();
+        int porcent=rnd.nextInt(101);
+        int mejorap = (int)Math.ceil(pases * porcent) /100;
+        int mejorarg =(int)Math.ceil(regate * porcent) /100;
+        int mejorarm =(int)Math.ceil(remate * porcent) /100;
+        
+        if(mejorap + pases <= 10)
+        {
+            pases+=mejorap;
+        }
+        else
+        {
+            pases = 10;
+        }
+
+        
+         if( mejorarg + regate <= 10)
+        {
+            regate+= mejorarg;
+        }
+        else
+        {
+           regate = 10;
+        }
+        
+        
+         if(mejorarm + remate <= 10)
+        {
+           remate+=mejorarm;
+        }
+        else
+        {
+            remate = 10;
+        }
+        
+        
+        //si entrena y algun valor es 0 se otorga un punto
+       
+        if (pases == 0)
+        {
+            pases=1;
+        }
+        else if (regate==0)
+        {
+            regate=1;
+        }
+        else if (remate==0)
+        {
+            remate=1;
+        }
     }
 }

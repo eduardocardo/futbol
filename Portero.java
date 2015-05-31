@@ -40,6 +40,26 @@ public class Portero extends Jugador
         return fortM;
     }
 
+    /**
+     * modificador de la habilidad fortaleza mental
+     * @param int fortaleza mental
+     */
+    public void setFortM(int f)
+    {
+        
+        fortM=f;
+    }
+    
+    
+    /**
+     * modificador de la habilidad agilidad
+     * @param int fortaleza agilidad
+     */
+    public void setAgilidad(int a)
+    {
+        agilidad=a;
+    }
+    
      /**
      * metodo que calcula la valoracion del portero
      * @return un valor entero que representa la valoracion
@@ -58,5 +78,50 @@ public class Portero extends Jugador
         String espacio = " ";
         return super.toString() + String.format("  Agil  : %2d  FortM   : %2d %12s   Valoracion : %2d",agilidad,
             fortM,espacio,valoracion());
+    }
+    
+    /**
+     * entrenamiento de los jugadores
+     * se mejora las habilidades en un porcentaje aleatorio
+     * si la habilidad es 0 reconpensando el entrenamiento se convierte en 1 
+     * 
+     */
+     public void entrenar()
+    {
+        super. entrenar();
+        Random rnd=new Random();
+        int porcent=rnd.nextInt(101);
+        int mejorag = (int)Math.ceil(agilidad * porcent) /100;
+        int mejorafm =(int)Math.ceil(fortM * porcent) /100;
+        
+        
+        if(mejorag + agilidad <= 10)
+        {
+           agilidad+=mejorag;
+        }
+        else
+        {
+            agilidad = 10;
+        }
+
+        
+         if( mejorafm + fortM <= 10)
+        {
+            fortM+=mejorafm;
+        }
+        else
+        {
+           fortM = 10;
+        }
+        
+        if(fortM==0)
+        {
+            fortM=1;
+        }
+        else if(agilidad==0)
+        {
+             agilidad=1;
+        }
+       
     }
 }

@@ -18,6 +18,7 @@ public class Equipo
     //almacena los jugadores que forman el equipo suplente
     private ArrayList<Jugador> equipoSuplente;
     
+    private int victorias;
     /**
      * Constructor de la clase Equipo
      * @param nombre es el nombre del equipo
@@ -51,6 +52,8 @@ public class Equipo
         }
         equipoTitular = new ArrayList<>();
         equipoSuplente = new ArrayList<>();
+        
+        victorias=0;
     }
 
     /**
@@ -127,8 +130,88 @@ public class Equipo
         {
             equipoSuplente.add(jugador);
         }
+        
+        //crack calculado de manera aleatoria
+        //de los doce titulares yn jugador pasa a ser el crack del equipo con todos los paramentros a tope
+        //contamos solo los jugadores de campo por eso solo 
+        int crack =rnd.nextInt(10)+1;
+        
+        //mejoramos las habilidades teniendo en cuenta si es jugador de campo o el capitan del equipo
+           if(equipoTitular.get(crack) instanceof Capitan)
+           {
+                equipoTitular.get(crack).setForma(10);
+                ((Capitan)equipoTitular.get(crack)).setPases(10);
+                ((Capitan)equipoTitular.get(crack)).setRemate(10);
+                ((Capitan)equipoTitular.get(crack)).setRemate(10);
+                ((Capitan)equipoTitular.get(crack)).setLiderazgo(10);
+           }
+           else if (equipoTitular.get(crack) instanceof JugadorDeCampo)
+           {
+                ((JugadorDeCampo)equipoTitular.get(crack)).setForma(10);
+               ((JugadorDeCampo)equipoTitular.get(crack)).setPases(10);
+                ((JugadorDeCampo)equipoTitular.get(crack)).setRemate(10);
+                ((JugadorDeCampo)equipoTitular.get(crack)).setRemate(10);
+           }
+        
+        
+        
+       
     }
 
+    
+    /**
+     * entrenamos al equipo al completo aumentado en un porcentaje aleatorio sus habilidades
+     */
+    public void entrenamineto()
+    {
+        
+        for(Jugador jugador: equipoTitular)
+        {
+           
+            
+            if(jugador instanceof Capitan)
+           { 
+                ((Capitan)jugador).entrenar();
+               
+           }
+          
+           else if (jugador instanceof JugadorDeCampo)
+           {
+               ((JugadorDeCampo)jugador).entrenar();
+               
+           }
+           
+           else if (jugador instanceof Portero)
+           {
+                 ((Portero)jugador).entrenar();
+                
+           }
+        }
+        
+        for(Jugador jugador: equipoSuplente)
+        {
+            
+            if(jugador instanceof Capitan)
+           { 
+                ((Capitan)jugador).entrenar();
+               
+           }
+          
+           else if (jugador instanceof JugadorDeCampo)
+           {
+               ((JugadorDeCampo)jugador).entrenar();
+               
+           }
+           
+           else if (jugador instanceof Portero)
+           {
+                 ((Portero)jugador).entrenar();
+                
+           }
+        }
+    }
+    
+    
     /**
      * Metodo que muestra los datos de los jugadores que forman el equipo titular
      */
@@ -152,5 +235,54 @@ public class Equipo
         {
             System.out.println(jugador);
         }
+    }
+    
+    /**
+     * obtenemos la valoracion del equipo de titulares 
+     * @return float valoracion de los titulares
+     */
+    public float getValoracionTitulares()
+    {
+        float sumaValoraciones = 0;
+        for(Jugador jugador : equipoSuplente)
+        {
+            sumaValoraciones += jugador.valoracion();
+        }
+        return sumaValoraciones;
+    }
+    
+    /**
+     * devuelve el liderazgo del capitan del equipo
+     * @return int liderazgo del capitan
+     */
+    public int getLiderazgo()
+    {
+        int liderazgo = 0;
+        for(Jugador jugador : equipoSuplente)
+        {
+            if(jugador instanceof Capitan)
+            {
+                liderazgo=((Capitan)jugador).getLiderazgo();
+            }
+        }
+        return liderazgo;
+    }
+    
+    /**
+     * devuelve las victorias del equipo
+     * @return int victorias
+     */
+    public int getVictorias()
+    {
+        return victorias;
+    }
+    
+    /**
+     * modifica las victorias del equipo incrementando el numero de las mismas en 1
+     *
+     */
+    public void incrementoVicotorias()
+    {
+        victorias++;
     }
 }
