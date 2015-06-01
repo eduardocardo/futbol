@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 /**
  * Write a description of class Liga here.
  * 
@@ -29,7 +30,7 @@ public class Liga
        }
        else
        {
-            equiposLiga=12;
+            equiposLiga++;
        }
        
        //inicializamos los array
@@ -50,6 +51,7 @@ public class Liga
 
     /**
      * simulador de partidos
+     * ALEATORIA
      * @param int numero de jornadas 
      */
     public void simularJornadas(int jornadas)
@@ -155,4 +157,56 @@ public class Liga
                                    equip.getVictorias()+ " \tpuntos: " + (equip.getVictorias()*3));
             }
     }
+    
+     public void simularJornadasTodosVsTodos(int jornadas)
+    {
+        //comprobamos que el numero de jornadas no es mayor que el numero de equipos menos 1
+        if(jornadas > equipos.size()-1)
+        {
+            jornadas=equipos.size()-1;
+        }
+        
+        //cremos un bucle para crear las jornadas
+        for(int i =0;i < jornadas;i++)
+        {
+            System.out.println("Jornada " + (i+1));
+            
+            //para cada jornada se juega tantos partidos com numero equipos/2, de manera aleatoria 
+            for(int a = 1;a < equipos.size();a++)
+            {
+                 ArrayList<Equipo> copia = new ArrayList<Equipo>();
+                 copia = (ArrayList)equipos.clone();
+        
+                 Collections.shuffle(copia); //desordena la lista de equipos
+                
+                
+                //jugamos un partido entre los equipos y guardamoos los resultados y quien gana el partido
+                Partido partido=(new Partido(equipos.get(a-1),equipos.get(a)) );
+                partidos.add(partido );
+                partido.simularPartido();
+                partido.getGanador().incrementoVicotorias();
+                //si es la primera simulacion se incrementa en 1 el valor de a equipor en pos 0  y 1 juegan
+                //a partir de la segunda simulacion se incrementa de 2 en dos simulando los equipos emparejados
+                //al terminar el encuentro los equipos que han jugado entrenan para mejora su habilidad
+                equipos.get(a-1).entrenamineto();
+                equipos.get(a).entrenamineto();
+               
+               
+                a++;
+               
+            
+        }            
+         System.out.println("   ");
+            System.out.println("  Clasificacion de la jornada ");
+            System.out.println("   ");
+            mostrarClasificaciones();
+        
+        
+    }
+     System.out.println("  Clasificacion de la jornada -- final de la liga ");
+                System.out.println(" GANADOR =  " + equipos.get(0).getNombre() + "------ENHORABUENA");
+                System.out.println("   ");
+  }
+    
+  
 }
